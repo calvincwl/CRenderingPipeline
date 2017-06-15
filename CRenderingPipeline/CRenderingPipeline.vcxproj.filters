@@ -13,6 +13,9 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{a14b9a11-7e83-45fa-b5bf-5d7d496489a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Test">
+      <UniqueIdentifier>{011ecdc3-3ec5-4ceb-8123-7a715e613c68}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Windows\Main.cpp">
@@ -24,7 +27,10 @@
     <ClCompile Include="Windows\WinApp.cpp">
       <Filter>Windows</Filter>
     </ClCompile>
-    <ClCompile Include="RenderCore\RenderDevice.cpp" />
+    <ClCompile Include="RenderCore\RenderDevice.cpp">
+      <Filter>RenderCore</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils\Singleton.h">
@@ -36,6 +42,9 @@
     <ClInclude Include="Windows\WinApp.h">
       <Filter>Windows</Filter>
     </ClInclude>
-    <ClInclude Include="RenderCore\RenderDevice.h" />
+    <ClInclude Include="RenderCore\RenderDevice.h">
+      <Filter>RenderCore</Filter>
+    </ClInclude>
+    <ClInclude Include="Test\Test.h" />
   </ItemGroup>
 </Project>

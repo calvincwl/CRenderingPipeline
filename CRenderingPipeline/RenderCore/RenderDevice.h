@@ -8,7 +8,7 @@ class FWinApp;
 
 class FRenderDevice
 {
-	friend class CLEngine;
+	friend class CEngine;
 
 public:
 	int GetWindowWidth() const { return WindowWidth; }

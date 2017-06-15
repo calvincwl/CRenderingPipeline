@@ -6,17 +6,17 @@
 #include "Utils/Singleton.h"
 #include "RenderCore/RenderDevice.h"
 
-class CLEngine : public TSingleton<CLEngine>
+class CEngine : public TSingleton<CEngine>
 {
-	friend class TSingleton<CLEngine>;
+	friend class TSingleton<CEngine>;
 
 public:
 	bool Initialize(HINSTANCE HInstance, int CmdShow, int Width, int Height);
 	void Update(float DeltaTime);
 
 private:
-	CLEngine();
-	~CLEngine();
+	CEngine();
+	~CEngine();
 
 	FRenderDevice RenderDevice;
 };

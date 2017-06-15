@@ -21,12 +21,14 @@
   <ItemGroup>
     <ClCompile Include="Engine\Engine.cpp" />
     <ClCompile Include="RenderCore\RenderDevice.cpp" />
+    <ClCompile Include="Test\Test.cpp" />
     <ClCompile Include="Windows\Main.cpp" />
     <ClCompile Include="Windows\WinApp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="RenderCore\RenderDevice.h" />
+    <ClInclude Include="Test\Test.h" />
     <ClInclude Include="Utils\Singleton.h" />
     <ClInclude Include="Windows\WinApp.h" />
   </ItemGroup>

@@ -22,7 +22,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	QueryPerformanceCounter((LARGE_INTEGER*)&prevTimeStamp);
 
     // Perform application initialization:
-    if (!CLEngine::Instance().Initialize(hInstance, nCmdShow, 1024, 768))
+    if (!CEngine::Instance().Initialize(hInstance, nCmdShow, 1024, 768))
     {
         return FALSE;
     }
