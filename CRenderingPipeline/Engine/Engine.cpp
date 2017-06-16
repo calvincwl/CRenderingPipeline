@@ -28,5 +28,9 @@ void CEngine::Update(float DeltaTime)
 		// FixedUpdate();
 		DeltaTime -= MSPerFrame;
 	}
+
+	RenderDevice.Clear();
 	// Render(MSPerFrame - DeltaTime);
+	Test.Update(DeltaTime);
+	RenderDevice.Draw();
 }

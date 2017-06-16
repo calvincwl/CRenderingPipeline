@@ -1,3 +1,5 @@
+// Copyright 2017 Calvin Lee. All Rights Reserved.
+
 #include "RenderDevice.h"
 #include <wingdi.h>
 #include "Engine/Engine.h"

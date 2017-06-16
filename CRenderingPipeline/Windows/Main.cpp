@@ -46,6 +46,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 
 			float DeltaTime = (currTimeStamp - prevTimeStamp) * secsPerCnt;
 			prevTimeStamp = currTimeStamp;
+			CEngine::Instance().Update(DeltaTime);
 		}
 	}
 

@@ -16,6 +16,9 @@
     <Filter Include="Test">
       <UniqueIdentifier>{011ecdc3-3ec5-4ceb-8123-7a715e613c68}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{565f9ace-390e-4a8b-9f60-679396803c41}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Windows\Main.cpp">
@@ -30,7 +33,24 @@
     <ClCompile Include="RenderCore\RenderDevice.cpp">
       <Filter>RenderCore</Filter>
     </ClCompile>
-    <ClCompile Include="Test\Test.cpp" />
+    <ClCompile Include="Test\Test.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Vector3.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Vector4.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Matrix.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\MathUtility.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Camera.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils\Singleton.h">
@@ -45,6 +65,23 @@
     <ClInclude Include="RenderCore\RenderDevice.h">
       <Filter>RenderCore</Filter>
     </ClInclude>
-    <ClInclude Include="Test\Test.h" />
+    <ClInclude Include="Test\Test.h">
+      <Filter>Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Camera.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector4.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Matrix.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MathUtility.h">
+      <Filter>Math</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

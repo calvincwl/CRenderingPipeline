@@ -8,6 +8,6 @@ public:
 	CTest();
 	~CTest();
 
-	void Update();
+	void Update(float DeltaTime);
 };
 
