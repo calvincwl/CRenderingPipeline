@@ -7,7 +7,8 @@
 
 CCamera::CCamera()
 {
-	Target = FVector3::ForwardVector;
+	Target = FVector3::ZeroVector;
+	Position = -FVector3::ForwardVector * 4.0f;
 }
 
 
@@ -25,7 +26,8 @@ void CCamera::SetData(float InNear, float InFar, float InFOV, float InAspect)
 
 void CCamera::Update(float DeltaTime)
 {
-
+	UpdateViewMatrix();
+	UpdateProjectMatrix();
 }
 
 void CCamera::UpdateViewMatrix()
@@ -48,9 +50,9 @@ void CCamera::UpdateProjectMatrix()
 	float CotTheta = 1.0f / FMath::Tan(FMath::DegreesToRadians(FOV / 2.0f));
 	ProjectMatrix.Set
 	(
-		CotTheta / Aspect, 0, 0, 0,
-		0, CotTheta, 0, 0,
-		0, 0, Far / (Far - Near), 1,
-		0, 0, Far * Near / (Near - Far), 0
+		CotTheta / Aspect,	0.0f,		0.0f,						0.0f,
+		0.0f,				CotTheta,	0.0f,						0.0f,
+		0.0f,				0.0f,		Far / (Far - Near),			1.0f,
+		0.0f,				0.0f,		Far * Near / (Near - Far),	0.0f
 	);
 }

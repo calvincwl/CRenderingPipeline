@@ -84,7 +84,7 @@ FMatrix	FMatrix::operator*(const FMatrix& Other) const
 		{
 			for (int Index = 0; Index < 4; ++Index)
 			{
-				ResultMat.M[X][Y] = M[X][Index] * Other.M[Index][Y];
+				ResultMat.M[X][Y] += M[X][Index] * Other.M[Index][Y];
 			}
 		}
 	}

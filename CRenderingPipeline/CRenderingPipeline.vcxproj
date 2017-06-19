@@ -23,8 +23,11 @@
     <ClCompile Include="Engine\Engine.cpp" />
     <ClCompile Include="Math\MathUtility.cpp" />
     <ClCompile Include="Math\Matrix.cpp" />
+    <ClCompile Include="Math\Vector2.cpp" />
     <ClCompile Include="Math\Vector3.cpp" />
     <ClCompile Include="Math\Vector4.cpp" />
+    <ClCompile Include="RenderCore\Pipeline.cpp" />
+    <ClCompile Include="RenderCore\Primitive.cpp" />
     <ClCompile Include="RenderCore\RenderDevice.cpp" />
     <ClCompile Include="Test\Test.cpp" />
     <ClCompile Include="Windows\Main.cpp" />
@@ -35,8 +38,11 @@
     <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="Math\MathUtility.h" />
     <ClInclude Include="Math\Matrix.h" />
+    <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Math\Vector4.h" />
+    <ClInclude Include="RenderCore\Pipeline.h" />
+    <ClInclude Include="RenderCore\Primitive.h" />
     <ClInclude Include="RenderCore\RenderDevice.h" />
     <ClInclude Include="Test\Test.h" />
     <ClInclude Include="Utils\Singleton.h" />

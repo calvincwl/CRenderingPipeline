@@ -51,6 +51,15 @@
     <ClCompile Include="Engine\Camera.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="RenderCore\Pipeline.cpp">
+      <Filter>RenderCore</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderCore\Primitive.cpp">
+      <Filter>RenderCore</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Vector2.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils\Singleton.h">
@@ -81,6 +90,15 @@
       <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="Math\MathUtility.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderCore\Pipeline.h">
+      <Filter>RenderCore</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderCore\Primitive.h">
+      <Filter>RenderCore</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector2.h">
       <Filter>Math</Filter>
     </ClInclude>
   </ItemGroup>

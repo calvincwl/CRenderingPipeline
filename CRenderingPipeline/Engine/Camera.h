@@ -13,6 +13,8 @@ public:
 
 	void SetData(float InNear, float InFar, float InFOV, float InAspect);
 	void Update(float DeltaTime);
+	const FMatrix& GetViewMatrix() { return ViewMatrix; }
+	const FMatrix& GetProjectileMatrix() { return ProjectMatrix; }
 
 private:
 	void UpdateViewMatrix();
