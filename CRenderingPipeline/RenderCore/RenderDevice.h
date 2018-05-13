@@ -3,6 +3,7 @@
 #pragma once
 
 #include <windows.h>
+#include <d2d1.h>
 
 class FWinApp;
 
@@ -11,9 +12,9 @@ class FRenderDevice
 	friend class CEngine;
 
 public:
-	int GetWindowWidth() const { return WindowWidth; }
-	int GetWindowHeight() const { return WindowHeight; }
-	void SetPixel(int X, int Y, DWORD Color);
+	int GetWindowWidth() const { return WindowSize.width; }
+	int GetWindowHeight() const { return WindowSize.height; }
+	void SetPixel(UINT32 X, UINT32 Y, DWORD Color);
 	void Clear();
 	void Draw();
 
@@ -24,11 +25,10 @@ private:
 	bool Initialize(HINSTANCE HInstance, int CmdShow, int Width, int Height);
 
 	FWinApp* WinApp;
-	int WindowWidth;
-	int WindowHeight;
-	HDC WindowDC;	// 窗口设备环境句柄
-	HDC CompatibleDC;	// 窗口兼容设备环境句柄
-	HBITMAP Bitmap;	// 渲染位图句柄
+	D2D1_SIZE_U WindowSize;
+	ID2D1Factory* D2DFactory;
+	ID2D1HwndRenderTarget* RenderTarget;
+	ID2D1Bitmap* Bitmap;	// 位图
 	DWORD* PixelBuffer;	// 像素Buffer
 	DWORD BufferSize;
 };

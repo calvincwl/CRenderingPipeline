@@ -105,6 +105,24 @@ LRESULT CALLBACK FWinApp::WndProc(HWND HWnd, UINT Message, WPARAM WParam, LPARAM
 {
 	switch (Message)
 	{
+	case WM_LBUTTONDOWN:	// 按下鼠标左键
+		break;
+	case WM_MOUSEMOVE:	// 鼠标移动
+		break;
+	case WM_RBUTTONDOWN:	// 按下鼠标右键
+		break;
+	case WM_KEYDOWN:	// 按下键盘键
+		switch (WParam)
+		{
+		case VK_ESCAPE:
+			PostQuitMessage(0);
+			break;
+		default:
+			break;
+		}
+		break;
+	case WM_MOUSEWHEEL:	// 鼠标滚轮
+		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;

@@ -33,9 +33,11 @@ void CEngine::Update(float DeltaTime)
 	}
 
 	RenderDevice.Clear();
+
 	Test.Update(DeltaTime);
 	Camera.Update(DeltaTime);
 	Pipeline.Update(DeltaTime);
+
 	RenderDevice.Draw();
 }
 

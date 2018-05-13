@@ -1,74 +1,99 @@
 // Copyright 2017 Calvin Lee. All Rights Reserved.
 
 #include "RenderDevice.h"
-#include <wingdi.h>
 #include "Engine/Engine.h"
 #include "Windows/WinApp.h"
 
-
+template <class T> void SafeRelease(T **ppT)
+{
+	if (*ppT)
+	{
+		(*ppT)->Release();
+		*ppT = NULL;
+	}
+}
 
 FRenderDevice::FRenderDevice()
 {
 	WinApp = new FWinApp();
+	D2DFactory = NULL;
+	RenderTarget = NULL;
 }
 
 
 FRenderDevice::~FRenderDevice()
 {
-	DeleteDC(CompatibleDC);
-	ReleaseDC(WinApp->GetWindow(), WindowDC);
-	delete WinApp;
+	SafeRelease(&D2DFactory);
+	SafeRelease(&RenderTarget);
 }
 
 bool FRenderDevice::Initialize(HINSTANCE HInstance, int CmdShow, int Width, int Height)
 {
 	if (!WinApp->Initialize(HInstance, CmdShow, Width, Height)) { return false; }
 
-	WindowWidth = Width;
-	WindowHeight = Height;
-	BufferSize = WindowWidth * WindowHeight * sizeof(DWORD);
+	HRESULT hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &D2DFactory);
+	if (FAILED(hr))
+	{
+		MessageBox(WinApp->GetWindow(), L"Create D2D factory failed!", L"Error", 0);
+		return false;
+	}
 
-	WindowDC = GetWindowDC(WinApp->GetWindow());
-	CompatibleDC = CreateCompatibleDC(WindowDC);
+	// Obtain the size of the drawing area.
+	RECT rc;
+	GetClientRect(WinApp->GetWindow(), &rc);
+	WindowSize = D2D1::SizeU(rc.right - rc.left, rc.bottom - rc.top);
+	BufferSize = WindowSize.width * WindowSize.height * sizeof(DWORD);
 
-	// 配置BITMAPINFO信息
-	BITMAPINFO Bmpinfo;
-	Bmpinfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
-	Bmpinfo.bmiHeader.biWidth = WindowWidth;
-	Bmpinfo.bmiHeader.biHeight = WindowHeight;
-	Bmpinfo.bmiHeader.biPlanes = 1;
-	Bmpinfo.bmiHeader.biBitCount = 32;
-	Bmpinfo.bmiHeader.biCompression = BI_RGB;
-	Bmpinfo.bmiHeader.biSizeImage = BufferSize;
-	Bmpinfo.bmiHeader.biXPelsPerMeter = 0;
-	Bmpinfo.bmiHeader.biClrImportant = 0;
-	Bmpinfo.bmiHeader.biClrUsed = 0;
+	D2D1_PIXEL_FORMAT PixelFormat = D2D1::PixelFormat(
+		DXGI_FORMAT_B8G8R8A8_UNORM, D2D1_ALPHA_MODE_IGNORE);
 
-	// 申请内存, 无需手动释放
-	Bitmap = CreateDIBSection(CompatibleDC, &Bmpinfo, DIB_RGB_COLORS, (void**)&PixelBuffer, NULL, 0);
+	D2D1_RENDER_TARGET_PROPERTIES RTProperties = D2D1::RenderTargetProperties();
+	RTProperties.pixelFormat = PixelFormat;
+
+	// Create a Direct2D render target
+	hr = D2DFactory->CreateHwndRenderTarget(RTProperties, D2D1::HwndRenderTargetProperties(
+		WinApp->GetWindow(), D2D1::SizeU(WindowSize.width, WindowSize.height)), &RenderTarget);
+	if (FAILED(hr))
+	{
+		MessageBox(WinApp->GetWindow(), L"Create render target failed!", L"Error", 0);
+		return false;
+	}
+
+	// 创建位图
+	D2D1_BITMAP_PROPERTIES BMPProperties = {
+		PixelFormat,
+		(float)WindowSize.width,
+		(float)WindowSize.height
+	};
+	long pitch = WindowSize.width;
+	PixelBuffer = new DWORD[WindowSize.width * WindowSize.height];
+	memset(PixelBuffer, 0, WindowSize.width * WindowSize.height * sizeof(DWORD));
+	RenderTarget->CreateBitmap(WindowSize, PixelBuffer, pitch, &BMPProperties, &Bitmap);
 
 	return true;
 }
 
-void FRenderDevice::SetPixel(int X, int Y, DWORD Color)
+void FRenderDevice::SetPixel(UINT32 X, UINT32 Y, DWORD Color)
 {
-	if (X < WindowWidth && Y < WindowHeight)
+	if (X < WindowSize.width && Y < WindowSize.height)
 	{
-		PixelBuffer[(WindowHeight - 1 - Y) * WindowWidth + X] = Color;
+		PixelBuffer[(WindowSize.height - 1 - Y) * WindowSize.width + X] = Color;
 	}
 }
 
 void FRenderDevice::Clear()
 {
-	ZeroMemory(PixelBuffer, BufferSize);
+	memset(PixelBuffer, 0, WindowSize.width * WindowSize.height * sizeof(DWORD));
 }
 
 void FRenderDevice::Draw()
 {
-	HGDIOBJ OldSel = SelectObject(CompatibleDC, Bitmap);
+	RenderTarget->BeginDraw();
+	RenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::Black));
 
-	// 将CompatibleDC的数据复制到屏幕显示DC中
-	BitBlt(WindowDC, 0, 0, WindowWidth, WindowHeight, CompatibleDC, 0, 0, SRCCOPY);
+	static D2D1_RECT_U rc = D2D1::RectU(0, 0, WindowSize.width, WindowSize.height);
+	Bitmap->CopyFromMemory(&rc, PixelBuffer, WindowSize.width * sizeof(DWORD));
+	RenderTarget->DrawBitmap(Bitmap, D2D1::RectF(0.0f, 0.0f, (FLOAT)WindowSize.width, (FLOAT)WindowSize.height));
 
-	SelectObject(CompatibleDC, OldSel);
+	RenderTarget->EndDraw();
 }
